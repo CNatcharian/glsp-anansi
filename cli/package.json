@@ -1,0 +1,69 @@
+{
+  "name": "@eclipse-glsp/cli",
+  "version": "0.9.0",
+  "description": "CLI scripts and tools for GLSP",
+  "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
+  "keywords": [
+    "eclipse",
+    "graphics",
+    "diagram",
+    "modeling",
+    "visualization",
+    "glsp",
+    "diagram editor"
+  ],
+  "author": {
+    "name": "Eclipse GLSP"
+  },
+  "homepage": "https://www.eclipse.org/glsp/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eclipse-glsp/glsp-client.git"
+  },
+  "bugs": "https://github.com/eclipse-glsp/glsp/issues",
+  "contributors": [
+    {
+      "name": "Eclipse GLSP Project",
+      "email": "glsp-dev@eclipse.org",
+      "url": "https://projects.eclipse.org/projects/ecd.glsp"
+    }
+  ],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "commander": "8.1.0",
+    "shelljs": "0.8.4",
+    "fs-extra": "10.0.0",
+    "mvn-artifact-download": "6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "12",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
+    "eslint": "7.32.0",
+    "eslint-plugin-header": "^3.0.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-no-null": "^1.0.2",
+    "rimraf": "^2.6.1",
+    "typescript": "^3.9.2",
+    "@types/fs-extra": "9.0.12",
+    "@types/shelljs": "0.8.9"
+  },
+  "scripts": {
+    "prepare": "yarn clean && yarn build && yarn lint",
+    "clean": "rimraf lib",
+    "build": "tsc",
+    "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
+    "watch": "tsc -w"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "glsp-cli": "lib/main.js"
+  },
+  "main": "lib/index",
+  "types": "lib/index"
+}

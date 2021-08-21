@@ -1,0 +1,27 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/lib/main-app.js",
+      "request": "launch",
+      "args": [
+        "dev",
+        "server-download",
+        ".",
+        "-v",
+        "yxy"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/**/*.js",
+        "!**/node_modules/**"
+      ],
+      "outputCapture": "console",
+      "type": "pwa-node"
+    }
+  ],
+  "compounds": []
+}
