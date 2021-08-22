@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /********************************************************************************
  * Copyright (c) 2021 EclipseSource and others.
  *
@@ -14,14 +13,3 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Command } from 'commander';
-
-const program = new Command()
-    .name('glsp')
-    .description('Collection of usefull scripts and commands for contributing to and maintaining Eclipse GLSP.')
-    .enablePositionalOptions()
-    .showHelpAfterError()
-    .command('dev', 'Collection of sub-commands for contributing to and devloping with Eclipse GLSP', { executableFile: 'dev/dev-app' })
-    .addHelpText('afterAll', '\n Copyright (c) 2021 EclipseSource and others.');
-
-program.parse(process.argv);

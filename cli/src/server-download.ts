@@ -16,8 +16,8 @@
 import { Command } from 'commander';
 import download from 'mvn-artifact-download';
 
-import { Logger } from '../common/logging';
-import { Validation } from '../common/validation';
+import { Logger } from './common/logging';
+import { Validation } from './common/validation';
 
 const defaultVersion = process.env.npm_package_version;
 

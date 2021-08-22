@@ -3,14 +3,13 @@
   "configurations": [
     {
       "name": "Launch Program",
-      "program": "${workspaceFolder}/lib/main-app.js",
+      "program": "${workspaceFolder}/lib/glsp.js",
       "request": "launch",
       "args": [
-        "dev",
-        "server-download",
-        ".",
-        "-v",
-        "yxy"
+        "yarn-link",
+        "/workspaces/container-ws",
+        "-sl",
+        "/workspaces/container-ws/yarn-link",
       ],
       "skipFiles": [
         "<node_internals>/**"
