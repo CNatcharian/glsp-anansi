@@ -14,3 +14,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { Command } from 'commander';
+
+const program = new Command()
+    .name('glsp-cli')
+    .description('Collection of useful scripts and commands for contributing to and maintaining Eclipse GLSP.')
+    .enablePositionalOptions()
+    .showHelpAfterError()
+    .command('yarn-link', 'Configure the GLSP repositories for local development using yarn link', { executableFile: 'yarn-link-cmd' })
+    .command('server-download', 'Downloads a specific version of the GLSP workflow example server from the maven repository', { executableFile: 'server-download-cmd' })
+    .addHelpText('afterAll', '\n Copyright (c) 2021 EclipseSource and others.');
+
+program.parse(process.argv);

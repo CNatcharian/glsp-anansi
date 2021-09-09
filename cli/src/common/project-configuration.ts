@@ -15,18 +15,9 @@
  ********************************************************************************/
 
 /**
- * Utilitiy functions to create often used yarn commands.
+ * Name constants of the glsp and sprotty git repositories
  */
-export namespace YarnCommand {
-    export const build = (force = false): string => `yarn install ${force ? '--force' : ''}`;
-    export const unlink = (): string => 'yarn unlink';
-    export const link = (customLinkDir?: string): string => `yarn link ${customLinkDir ? '--link-folder ' + customLinkDir : ''}`;
-}
-
-/**
- * Name constants of the repository root directories
- */
-export namespace Repository {
+export module Repository {
     export const GLSP_CLIENT = 'glsp-client';
     export const GLSP_THEIA_INTEGRATION = 'glsp-theia-integration';
     export const GLSP_VSCODE_INTEGRATION = 'glsp-vscode-integration';
@@ -39,7 +30,7 @@ export namespace Repository {
 /**
  * Name constants of the glsp and sprotty npm packages
  */
-export namespace Package {
+export module Package {
     export const GLSP_CLIENT = '@eclipse-glsp/glsp-client';
     export const GLSP_PROTOCOL = '@eclipse-glsp/glsp-protocol';
     export const GLSP_THEIA_INTEGRATION = '@eclipse-glsp/theia-integration';
@@ -49,5 +40,45 @@ export namespace Package {
 
     export const SPROTTY = 'sprotty';
     export const SPROTTY_THEIA = 'sprotty-theia';
+}
+
+export class ProjectSet {
+    static readonly CLIENT = new ProjectSet('CLIENT', [Repository.GLSP_CLIENT]);
+    static readonly THEIA = new ProjectSet('THEIA', [Repository.GLSP_CLIENT, Repository.GLSP_THEIA_INTEGRATION]);
+    static readonly VSCODE = new ProjectSet('VSCODE', [Repository.GLSP_VSCODE_INTEGRATION, Repository.GLSP_CLIENT]);
+    static readonly ECLIPSE = new ProjectSet('ECLIPSE', [Repository.GLSP_ECLIPSE_INTEGRATION, Repository.GLSP_CLIENT]);
+    static readonly ALL = new ProjectSet('ALL', [Repository.GLSP_CLIENT, Repository.GLSP_THEIA_INTEGRATION, Repository.GLSP_VSCODE_INTEGRATION, Repository.GLSP_THEIA_INTEGRATION]);
+
+    static getAll(): ProjectSet[] {
+        return [ProjectSet.CLIENT, ProjectSet.THEIA, ProjectSet.VSCODE, ProjectSet.ECLIPSE, ProjectSet.ALL];
+    }
+
+    static getKeys(): string[] {
+        return ProjectSet.getAll().map(set => set.key);
+    }
+
+    static getValues(): string[][] {
+        return ProjectSet.getAll().map(set => set.value);
+    }
+
+    static create(key: string): ProjectSet | undefined {
+        const matches = this.getAll().filter(set => set.key === key.toUpperCase());
+        if (matches.length === 1) {
+            return matches[0];
+        }
+        return undefined;
+    }
+
+    private constructor(private _key: string, private _value: string[]) {
+
+    }
+
+    get value(): string[] {
+        return this._value;
+    }
+
+    get key(): string {
+        return this._key;
+    }
 
 }

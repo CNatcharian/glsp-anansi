@@ -13,3 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+
+export const build = (force = false): string => `yarn ${force ? '--force' : ''}`;
+export const unlink = 'yarn unlink';
+export const link = (customLinkDir?: string): string => `yarn link ${customLinkDir ? `--link-folder ${customLinkDir}` : ''}`;
+

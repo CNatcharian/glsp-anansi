@@ -16,33 +16,39 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
-import { Logger } from './logging';
+import { log } from '../common/logging';
 
-export namespace Validation {
-    const log = new Logger();
-
-    export function isValidDirectory(value: string, _previous: string): string {
-        if (!fs.pathExistsSync(value)) {
-            log.error(`'${value} is not a valid file path!`);
-        }
-        if (!fs.existsSync(value)) {
-            log.error(`The directory '${value}' does not exist!`);
-        }
-
-        if (!fs.statSync(value).isDirectory()) {
-            log.error(`The file '${value}' is not a directory`);
-        }
-        return path.resolve(value);
+/**
+ * Validates wether a given string is a valid file path that points to an existing directory.
+ * Logs an error message and exits the application if a validation error occurs.
+ * @param value The string value that should be validated
+ * @returns The validated and normalized directory path.
+ */
+export function isValidDirectory(value: string): string {
+    if (!fs.pathExistsSync(value)) {
+        log.error(`'${value} is not a valid file path!`);
     }
-    /**
-     * Commander validation function to verify if a given string is a valid semantic version.
-     */
-    export function isValidVersion(value: string, _previous: string): string {
-        const versionRegex = new RegExp('(?:(\\d+)\\.)?(?:(\\d+)\\.)?(\\*|\\d+)(-(.)+)?');
-        if (!value.match(versionRegex)?.includes(value) || false) {
-            log.error(`The string '${value}' is not a valid semantic version`);
-        }
-        return value;
+    if (!fs.existsSync(value)) {
+        log.error(`The directory '${value}' does not exist!`);
     }
 
+    if (!fs.statSync(value).isDirectory()) {
+        log.error(`The file '${value}' is not a directory`);
+    }
+    return path.resolve(value);
 }
+
+/**
+ * Validates wether a given string is a valid semantic version.
+ * Logs an error message and exits the application if a validation error occurs.
+ * @param value The string value that should be validated
+ * @returns the validated version string
+ */
+export function isValidVersion(value: string): string {
+    const versionRegex = new RegExp('(?:(\\d+)\\.)?(?:(\\d+)\\.)?(\\*|\\d+)(-(.)+)?');
+    if (!value.match(versionRegex)?.includes(value) || false) {
+        log.error(`'${value}' is not a valid semantic version`);
+    }
+    return value;
+}
+

@@ -16,13 +16,23 @@
  ********************************************************************************/
 import { Command } from 'commander';
 
+import * as Validation from '../common/validation';
+import { executeDownloadServer } from '../server-download';
+
+const defaultVersion = process.env.npm_package_version;
 const program = new Command()
-    .name('glsp')
-    .description('Collection of usefull scripts and commands for contributing to and maintaining Eclipse GLSP.')
-    .enablePositionalOptions()
+    .name('server-download')
+    .description('Downloads a specific version of the Workflow Example Java Server from the maven repository')
     .showHelpAfterError()
-    .command('yarn-link', 'Configure the GLSP repositories for local development using yarn link', { executableFile: 'yarn-link' })
-    .command('server-download', 'Downloads a specific version of the GLSP workflow example server from the maven repository', { executableFile: 'server-download' })
+    .argument('<destination>', 'The directory where the server should be downloaded to', Validation.isValidDirectory)
+    .option('-v , --version <version>', 'The server version that should be downloaded', Validation.isValidVersion, defaultVersion)
+    .option('-s , --snapshot', 'Download the latest snapshot instead of the release version', false)
+    .option('-d , --debug', 'Enable additional log.debug log output', false)
     .addHelpText('afterAll', '\n Copyright (c) 2021 EclipseSource and others.');
 
-program.parse(process.argv);
+program.parse();
+
+const options = program.opts();
+const downloadDir = program.processedArgs[0];
+
+executeDownloadServer(downloadDir, options.version, options.snapshot, options.debug);

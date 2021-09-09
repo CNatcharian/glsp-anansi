@@ -57,13 +57,13 @@
     "build": "tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "watch": "tsc -w",
-    "start": "node ./lib/glsp.js yarn-link /workspaces/container-ws -sl /workspaces/container-ws/yarn-link"
+    "start": "node ./lib/app/main.js"
   },
   "publishConfig": {
     "access": "public"
   },
   "bin": {
-    "glsp": "lib/glsp.js"
+    "glsp": "lib/app/main.js"
   },
   "main": "lib/index",
   "types": "lib/index"
